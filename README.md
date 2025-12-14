@@ -100,6 +100,17 @@ Early-stage architecture and implementation.
 
 ---
 
+## Contributing
+
+Looking for contributors interested in privacy-first AI infrastructure. If you care about:
+- LLM privacy and anonymity
+- Zero-trust architecture
+- Building the missing privacy layer for AI
+
+Open an issue or reach out: Saqib.Khan@Me.com
+
+---
+
 ## License
 
 **Business Source License 1.1**
