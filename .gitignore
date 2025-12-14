@@ -1,5 +1,4 @@
-# Claude/AI config files - NEVER COMMIT
-.claude
+# Local config
 .claude/
 
 # Environment and secrets
