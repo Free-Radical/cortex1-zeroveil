@@ -163,13 +163,19 @@ The companion client SDK (cortex1-core) already implements 3-tier cost-optimized
 
 ### Aggregation Benefits
 
-Beyond privacy, the multi-tenant architecture provides economic advantages:
-- Aggregated volume qualifies for better provider pricing tiers
+The multi-tenant architecture provides compounding advantages:
+
+*Privacy & Anonymity:*
+- Larger user base = larger anonymity set = stronger privacy
+- More traffic = better timing obfuscation
+- Diverse patterns make individual fingerprinting harder
+
+*Economic:*
+- Aggregated volume qualifies for better pricing tiers
 - Collective buying power enables enterprise rate negotiations
 - Shared infrastructure and compliance costs
-- Centralized benchmarking benefits all users
 
-This creates a network effect: more users → better pricing → lower costs for everyone.
+This creates a virtuous network effect: more users → stronger anonymity AND lower costs for everyone.
 
 ### Routing: Intelligent Model Selection
 
