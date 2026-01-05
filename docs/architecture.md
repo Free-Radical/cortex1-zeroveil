@@ -91,12 +91,12 @@ This separation is intentional:
 
 ### Scrubbing Tooling
 
-ZeroVeil SDK provides local scrubbing tooling:
-- **Local-only**: Runs in your environment
-- **Auditable**: Designed to be reviewable and testable
-- **Optional**: Not part of the relay service
+ZeroVeil SDK provides open-source local scrubbing tooling:
+- **Local-only**: Runs entirely in your environment—your data never leaves
+- **Open-source (BSL)**: Auditable, reviewable, and testable
+- **Optional**: Not part of the relay service—use your own scrubbing if preferred
 
-Note: The `zeroveil-sdk` repository is currently **private (invite-only)** during early development. It is intended to become public later.
+*Note: The `zeroveil-sdk` repository is source-available under BSL. Early access is invite-only during initial development.*
 
 We will never ask you to send raw PII to our servers.
 
@@ -126,12 +126,16 @@ The central mixer component:
 
 ## Editions Boundary (Community vs Pro)
 
-This repository is the **Community Gateway**: the auditable enforcement core.
+This repository is the **Community Gateway**: the auditable enforcement core with full mixer functionality.
 
-- Community (public, BSL): policy enforcement, routing primitives, metadata-only audit events, and conformance tests.
-- Pro / Hosted (private): enterprise auth, admin UX, compliance reporting, and hardened operations for managed deployments.
+Both editions are available **self-hosted** or **cloud-hosted** (operated by ZeroVeil):
 
-See `docs/editions.md` for the canonical split.
+- **Community (free, BSL):** Policy enforcement, mixer primitives (batching, shuffle, jitter), metadata-only audit events, conformance tests. Cloud-hosted Community includes shared relay identity for network effect benefits.
+- **Pro (paid):** Enterprise auth (SSO/SAML), architecture aligned with HITRUST/ISO 27001/27701/SOC 2/NIST CSF/AI RMF controls, compliance evidence bundles, signed audit logs, PII reject-only gate, advanced routing policy.
+
+**Recommendation:** For small-to-medium organizations, cloud-hosted is preferable because larger mixing pools provide stronger correlation resistance.
+
+See `docs/editions.md` for the canonical split and `docs/mixer-design.md` for mixer technical details.
 
 ### 2. ZDR Enforcement
 
@@ -294,28 +298,50 @@ Contact Saqib.Khan@Me.com for Pro tier access.
 
 ## Deployment Models
 
-### Hosted Relay (Default)
+Both Community and Pro editions support either deployment model.
+
+### Cloud-Hosted (Recommended for Most Users)
 
 Cortex1-ZeroVeil operates the relay:
-- Simplest setup
-- Requires trust in operator
-- Shared infrastructure, economies of scale
+- **Network effect:** Larger mixing pool = stronger correlation resistance
+- Simplest setup, no infrastructure to maintain
+- Shared relay identity for all tenants
+- Economies of scale
 
-### Self-Hosted Relay
+**Best for:** Small-to-medium organizations, teams without dedicated ops.
+
+### Self-Hosted
 
 Organization runs own relay:
-- Full control
+- Full control over infrastructure
 - No external trust required
-- Higher operational burden
+- Data sovereignty / air-gap compliance
+- **No mixing benefit** unless you have multiple internal tenants
+
+**Best for:** Air-gapped environments, strict data sovereignty requirements, large enterprises with internal multi-tenancy.
 
 ---
 
-## Compliance Considerations
+## Compliance & Security Standards
 
-- **GDPR**: Data minimization, purpose limitation, processor agreements
-- **HIPAA**: PHI must be scrubbed before reaching relay; architectural intent is to avoid PHI exposure (consult qualified legal counsel for BAA requirements in your specific use case)
-- **SOC 2**: Audit logging, access controls on relay
-- **CCPA**: User rights, disclosure requirements
+ZeroVeil Pro is architected to support major security frameworks:
+
+| Framework | ZeroVeil Alignment |
+|-----------|-------------------|
+| HITRUST CSF | PHI scrubbed client-side, audit logging |
+| SOC 2 Type II | Access controls, audit trails, availability |
+| ISO 27001/27701 | Information security + privacy management |
+| NIST CSF | US enterprise security baseline |
+| NIST AI RMF | AI-specific privacy and risk controls |
+| HIPAA | BAA support, PHI never reaches relay |
+| GDPR | Data minimization, DPA templates |
+
+See [docs/compliance.md](compliance.md) for detailed control mappings across all frameworks.
+
+**Regulatory notes:**
+- **HIPAA**: PHI must be scrubbed before reaching relay; consult qualified legal counsel for BAA requirements
+- **GDPR**: Data minimization by design; processor agreements available
+- **CCPA**: User rights and disclosure procedures documented
 
 Note: By requiring local PII scrubbing, compliance burden is simplified — we are not a processor of personal data.
 

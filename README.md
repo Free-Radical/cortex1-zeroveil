@@ -57,9 +57,9 @@ We handle **identity privacy** (reducing user<->prompt correlation). You handle 
 
 ### Local Scrubbing Tooling (Client-Side)
 
-ZeroVeil SDK is a local-only client library for PII scrubbing and relay access. It runs **locally in your environment**, not on our servers. We will never ask you to send raw PII to us.
+ZeroVeil SDK is an open-source (BSL) client library for local PII scrubbing and relay access. It runs **entirely in your environment**—your data never leaves. We will never ask you to send raw PII to us.
 
-Note: The `zeroveil-sdk` repository is currently **private (invite-only)** during early development. It is intended to become public later.
+*Note: The `zeroveil-sdk` repository is source-available under BSL. Early access is invite-only during initial development.*
 
 Anyone offering cloud-based PII scrubbing as a "privacy feature" is asking you to trust them with the very data you're trying to protect. That's not privacy — that's outsourcing risk.
 
@@ -111,16 +111,34 @@ pip install zeroveil
 - ZeroVeil relay client
 - Simple API for privacy-preserving LLM interactions
 
-- SDK repo: private for now (invite-only)
+*SDK repo: source-available (BSL), early access invite-only*
+
+### Deployment Options
+
+Both Community and Pro are available **self-hosted** or **cloud-hosted**:
+
+| Option | Relay Identity | Mixing Benefit | Best For |
+|--------|----------------|----------------|----------|
+| **Cloud-Hosted** | Shared (ZeroVeil-operated) | High (network effect) | Most users |
+| **Self-Hosted** | Your own API keys | None (unless multi-tenant) | Air-gap, data sovereignty |
+
+**Recommendation:** For small-to-medium organizations, **cloud-hosted is preferable** because larger mixing pools provide stronger correlation resistance.
 
 ### ZeroVeil Pro
 
-For organizations requiring advanced data protection:
+Enterprise features on top of Community:
 
-- Deterministic and non-deterministic scrubbing modes
-- Reversible token mapping (recover original values post-processing)
-- Multiple scrubbing backends (Presidio, regex, scrubadub)
-- Audit logging for compliance
+- Enterprise auth (SSO/SAML/OIDC) and RBAC
+- Architecture aligned with HITRUST CSF, ISO 27001/27701, SOC 2, NIST CSF, NIST AI RMF
+- Compliance evidence bundles for customer audits
+- Signed/immutable audit logs
+- PII/PHI reject-only ingress checks
+- Deterministic/non-deterministic scrubbing modes (SDK)
+- Reversible token mapping (SDK)
+
+*Formal certifications for ZeroVeil Hosted on roadmap pending scale.*
+
+See [docs/compliance.md](docs/compliance.md) for detailed control mappings.
 
 Contact: Saqib.Khan@Me.com for access.
 

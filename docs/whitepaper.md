@@ -19,7 +19,7 @@ Large Language Models are being integrated into workflows containing sensitive p
 
 Cortex1-ZeroVeil introduces a **mix network architecture** for LLM interactions -- applying principles from anonymous communication research (similar in concept to cryptocurrency tumblers) to AI infrastructure. By aggregating prompts from multiple tenants through a shared relay identity, it reduces user-to-prompt correlation at the provider level (risk reduction, not a guarantee).
 
-**Critically, we do not offer PII scrubbing as a service.** Sending raw PII to any third party for "privacy processing" defeats the purpose. Users must scrub content locally before it reaches our relay. This separation of concerns — content privacy (user responsibility) vs. identity privacy (ZeroVeil responsibility) — is foundational to our architecture.
+**Critically, we do not offer PII scrubbing as a service.** Sending raw PII to any third party for "privacy processing" defeats the purpose. Instead, we provide an open-source client-side SDK for local scrubbing—your data never leaves your environment. Users must scrub content locally before it reaches our relay. This separation of concerns—content privacy (your responsibility, with our tooling) vs. identity privacy (ZeroVeil's responsibility)—is foundational to our architecture.
 
 ---
 
@@ -130,7 +130,7 @@ We will never operate a cloud PII scrubbing service.
 
 Client-side scrubbing exists today:
 
-- **ZeroVeil SDK** (separate repo, currently private invite-only): local-only PII scrubbing using Microsoft Presidio (plus a minimal relay client).
+- **ZeroVeil SDK** (open-source, BSL): local-only PII scrubbing using Microsoft Presidio, plus a minimal relay client. Runs entirely in your environment.
 - **ZeroVeil Pro** (private, in active development): advanced deterministic/non-deterministic scrubbing, reversible token mapping, multiple backends, and audit logging.
 
 ---
@@ -161,7 +161,7 @@ We are implementing periodic evaluation of supported providers to optimize routi
 - ZDR compliance verification
 - Reliability metrics
 
-Tier escalation and pricing/cost policy are **Pro/Hosted** features; the Community gateway remains conservative and auditable, and the ZeroVeil SDK remains intentionally minimal.
+Tier escalation and pricing/cost policy are **Pro** features; the Community gateway remains conservative and auditable, and the ZeroVeil SDK remains intentionally minimal. Both Community and Pro are available self-hosted or cloud-hosted.
 
 ### Aggregation Benefits
 
@@ -241,13 +241,39 @@ The data privacy and AI security space has seen significant consolidation, inclu
 
 ---
 
+## Compliance & Security Standards
+
+ZeroVeil Pro supports enterprise compliance across major frameworks:
+
+| Framework | How ZeroVeil Helps |
+|-----------|-------------------|
+| **HITRUST CSF** | PHI never reaches relay (client scrubs), audit logging |
+| **SOC 2 Type II** | Access controls, metadata-only audit trails |
+| **ISO 27001/27701** | Information security + privacy management controls |
+| **NIST CSF** | US enterprise security baseline alignment |
+| **NIST AI RMF** | AI-specific privacy and risk management |
+| **HIPAA** | BAA support, architectural PHI avoidance |
+| **GDPR** | Data minimization, DPA templates |
+
+**Key compliance advantages:**
+- PII/PHI never reaches ZeroVeil (client-side scrubbing) → simplified processor obligations
+- No content logging → reduced audit scope
+- ZDR-only providers → documented data handling chain
+
+See [docs/compliance.md](compliance.md) for detailed control mappings.
+
+---
+
 ## Deployment Models
 
-| Model | Trust | Control | Complexity |
-|-------|-------|---------|------------|
-| Hosted relay | Trust operator | Low | Low |
-| Self-hosted | Self only | High | High |
-| Federated | Distributed | Medium | Medium |
+Both Community and Pro editions support either deployment option.
+
+| Model | Trust | Control | Mixing Benefit | Best For |
+|-------|-------|---------|----------------|----------|
+| **Cloud-hosted** | Trust operator | Low | High (network effect) | Most users, small-medium orgs |
+| **Self-hosted** | Self only | High | None (unless multi-tenant) | Air-gap, data sovereignty |
+
+**Recommendation:** Cloud-hosted is preferable for most organizations because larger mixing pools provide stronger correlation resistance. Self-hosting sacrifices mixing benefits for full control.
 
 ---
 

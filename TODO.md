@@ -36,12 +36,26 @@ This file tracks the **weekly execution plan** for the **Community Gateway** (th
 - Policy packs/examples (regulated vs general)
 - Conformance tests proving invariants (no content logging by default, scrub attestation required, ZDR enforced)
 
-## Week 5 (Relay Identity / Mixing v0)
+## Week 5 (Mixer Primitives)
 
-## Week 5 (Mixer v0 primitives — self-hosted)
+Full mixer implementation for both Community and Pro editions. See `docs/mixer-design.md` for technical details.
 
-- Community scope: define and ship **minimal** mixer primitives suitable for self-hosting (e.g., a single upstream identity for an org and optional small batching window), behind config.
-- Pro/Hosted scope: operate the shared upstream credentials (“relay identity”) and multi-tenant mixing at scale with stronger isolation and abuse controls.
+**Mixer Primitives (both editions):**
+- Request batching with configurable windows (min_batch, max_wait)
+- Shuffle dispatch (randomized order within batches)
+- Timing jitter (50-200ms random delays)
+- Header stripping (remove tenant-identifying metadata)
+- Request normalization (strip fingerprinting vectors)
+- One-time response tokens (unlinkable return routing)
+
+**Cloud-Hosted (both editions):**
+- Shared relay identity (ZeroVeil-operated API keys)
+- Network effect: larger mixing pool = stronger correlation resistance
+
+**Pro additions:**
+- Advanced abuse resistance controls
+- Multi-region routing options
+- Stronger tenant isolation guarantees
 
 ## Week 6 (Operational telemetry — metadata-only)
 
@@ -58,7 +72,8 @@ This file tracks the **weekly execution plan** for the **Community Gateway** (th
 - Abuse resistance pass + key-handling review
 - Public MVP release notes + grant applications kickoff
 
-## ZeroVeil SDK Visibility (Action Required)
+## ZeroVeil SDK Visibility
 
-- Current intent: keep `zeroveil-sdk` repo private (invite-only) during early development.
-- TODO: When ready for broad adoption, make `zeroveil-sdk` public and update docs/links in this repo accordingly.
+- SDK is source-available under BSL (same as gateway)
+- Early access is invite-only during initial development
+- TODO: Open public access when ready for broad adoption
